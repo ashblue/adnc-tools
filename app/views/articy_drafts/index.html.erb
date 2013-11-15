@@ -1,0 +1,27 @@
+<h1>Listing articy_drafts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ref</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @articy_drafts.each do |articy_draft| %>
+      <tr>
+        <td><%= articy_draft.ref %></td>
+        <td><%= link_to 'Show', articy_draft %></td>
+        <td><%= link_to 'Edit', edit_articy_draft_path(articy_draft) %></td>
+        <td><%= link_to 'Destroy', articy_draft, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Articy draft', new_articy_draft_path %>

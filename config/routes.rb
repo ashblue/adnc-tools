@@ -1,4 +1,6 @@
 AdncTools::Application.routes.draw do
+  resources :articy_drafts
+
   #get "home/index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -26,6 +28,8 @@ AdncTools::Application.routes.draw do
   #       get 'sold'
   #     end
   #   end
+
+  #puts '/upload' => 'home#upload'
 
   # Example resource route with sub-resources:
   #   resources :products do

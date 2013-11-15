@@ -1,0 +1,21 @@
+<%= form_for(@articy_draft) do |f| %>
+    <% if @articy_draft.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@articy_draft.errors.count, "error") %> prohibited this articy_draft from being saved:</h2>
+
+            <ul>
+                <% @articy_draft.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+        <%= f.label :ref %><br>
+        <%= f.text_field :ref %>
+    </div>
+    <div class="actions">
+        <%= f.submit %>
+    </div>
+<% end %>
