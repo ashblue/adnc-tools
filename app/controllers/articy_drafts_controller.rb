@@ -40,11 +40,9 @@ class ArticyDraftsController < ApplicationController
 
     respond_to do |format|
       if @articy_draft.save
-        # @TODO Also redirect to home
-        format.html { redirect_to @articy_draft, notice: 'Articy draft was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Articy Draft XML was successfully created.' }
         format.json { render action: 'show', status: :created, location: @articy_draft }
       else
-        # @TODO Redirec to home is possible
         # @TODO Delete created file
         format.html { render action: 'new' }
         format.json { render json: @articy_draft.errors, status: :unprocessable_entity }
