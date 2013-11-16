@@ -26,6 +26,8 @@ class ArticyDraftsController < ApplicationController
   # @TODO Add method ArticyDraft.file for retrieving stored file
   def create
     @articy_draft = ArticyDraft.new
+    @dialogue = Dialogue.new
+
     file = params[:articy_draft][:file]
     file_name = @articy_draft.id.to_s
 
@@ -40,6 +42,8 @@ class ArticyDraftsController < ApplicationController
 
     respond_to do |format|
       if @articy_draft.save
+        @dialogue.articy_draft = @articy_draft
+        @dialogue.save
         format.html { redirect_to root_path, notice: 'Articy Draft XML was successfully created.' }
         format.json { render action: 'show', status: :created, location: @articy_draft }
       else
@@ -50,31 +54,26 @@ class ArticyDraftsController < ApplicationController
     end
   end
 
+  # @TODO Delete after clearing out docs
   def upload
     file = params[:file]
     ap File.ftype(file)
 
-    # Verify XML file
-
-    # @TODO Export scaffold
-    # export = Create new XML submission model for full XML file
-    # Reference file name
-    # params created date, modified date, xml binary (zipped)
-
-    # Submit XML to sub categories for processing (with xmlUpload as parent)
-    # Submit file data to proper models for processing
-
     # @TODO Dialogue scaffold
-    # Dialogue model will require gzipped glob of and reference to xml file and timestamps
-    # Dialogue should use before_create to setup everything necessary
-    # Grab all dialogue nodes
-    # Identify choice groups
-    # Group adjacent choice dialogues and create special choice ids
-    # Tag nodes that lead to choices
-    # Ability to scroll through all dialogues with dropdowns (JavaScirpt collapse)
-
-    # If an error occurs at all flash this message and pump out errors on page
-    #flash[:notice] = "An error occured, see errors below"
+    # Dialogue model requires has_one articy_draft, timestamps
+    # articy_draft has_one dialogue
+    # Show will contain processing to output dialogue boxes by:
+      # Grab all dialogue nodes
+      # Identify choice groups
+      # Possibly group adjacent choice dialogues and create special choice ids
+      # Maybe tag nodes that lead to choices
+      # To grab or not to grab dialogue in-betweens
+    # Ability to scroll through all dialogues with dropdowns (JavaScript collapse)
+    # Quick travel by clicking node id
+    # Special view for outputting XML nodes as HTML
+    # Export JSON script button
+      # Exports .js file with all dialogue nodes and added groups
+      # Maybe add header and footer for ImpactJS for immediate inclusion (make reusable)
   end
 
   # PATCH/PUT /articy_drafts/1
