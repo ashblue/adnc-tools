@@ -1,4 +1,6 @@
 AdncTools::Application.routes.draw do
+  resources :dialogues
+
   resources :articy_drafts
 
   #get "home/index"
