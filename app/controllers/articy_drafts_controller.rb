@@ -23,13 +23,12 @@ class ArticyDraftsController < ApplicationController
 
   # POST /articy_drafts
   # POST /articy_drafts.json
-  # @TODO Add method ArticyDraft.file for retrieving stored file
   def create
     @articy_draft = ArticyDraft.new
     @dialogue = Dialogue.new
 
     file = params[:articy_draft][:file]
-    file_name = @articy_draft.id.to_s
+    file_name = @articy_draft.id.to_s + '.xml'
 
     if file.content_type == 'text/xml'
       # @TODO Dump files into something like paperclip, not in root
@@ -59,7 +58,6 @@ class ArticyDraftsController < ApplicationController
     file = params[:file]
     ap File.ftype(file)
 
-    # @TODO Dialogue scaffold
     # Dialogue model requires has_one articy_draft, timestamps
     # articy_draft has_one dialogue
     # Show will contain processing to output dialogue boxes by:

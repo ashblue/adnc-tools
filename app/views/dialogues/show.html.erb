@@ -1,4 +1,27 @@
+<h1>Collection Resources</h1>
+
 <p id="notice"><%= notice %></p>
+
+<%= link_to 'Download', download_dialogue_path(:id => @dialogue) %>
+
+<%# @TODO Remove %>
+<h2>Dialogues</h2>
+<ul>
+    <% @dialogues.each do |d| %>
+        <% text = d.at_xpath('.//Text/LocalizedString') %>
+        <li class="xml-node">
+            <article>
+                <header>
+                    ID: <%= d['Id'].to_s %><br/>
+                    Text: <%= text.inner_text unless text.class == NilClass %>
+                </header>
+                <p class="xml-code" style="display: none;">
+                    <%#= d.to_s %>
+                </p>
+            </article>
+        </li>
+    <% end %>
+</ul>
 
 <%= link_to 'Edit', edit_dialogue_path(@dialogue) %> |
 <%= link_to 'Back', dialogues_path %>

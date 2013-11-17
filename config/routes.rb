@@ -1,5 +1,9 @@
 AdncTools::Application.routes.draw do
-  resources :dialogues
+  resources :dialogues do
+    member do
+      get 'download'
+    end
+  end
 
   resources :articy_drafts
 

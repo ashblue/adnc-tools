@@ -10,10 +10,9 @@ class ArticyDraft
 
   def file_xml
     loc = Rails.root.to_s + '/' + AppConstants::ARTICY_DRAFT_DIR + '/' + self.ref
-    file = File.open(loc)
-    xml_content = Nokogiri::XML(file)
-    file.close
+    file = File.read(loc)
 
-    xml_content
+    # Remove namespace in order to prevent XML namespace from gunking up searches
+    Nokogiri::XML(file).remove_namespaces!
   end
 end
