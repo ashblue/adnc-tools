@@ -1,17 +1,12 @@
 AdncTools::Application.routes.draw do
-  resources :dialogues do
+  resources :dialogues
+
+  resources :articy_drafts do
     member do
       get 'download'
     end
   end
 
-  resources :articy_drafts
-
-  #get "home/index"
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
   root 'home#index'
 
   # Example of regular route:
@@ -34,8 +29,6 @@ AdncTools::Application.routes.draw do
   #       get 'sold'
   #     end
   #   end
-
-  #puts '/upload' => 'home#upload'
 
   # Example resource route with sub-resources:
   #   resources :products do

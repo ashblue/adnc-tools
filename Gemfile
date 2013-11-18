@@ -1,38 +1,22 @@
 source 'https://rubygems.org'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+# Core
 gem 'rails', '4.0.0'
-
-# XML Parsing
-gem 'nokogiri'
-
-# MongoDB package
 gem 'mongoid', git: 'git://github.com/mongoid/mongoid.git'
-
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
-
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
-
-# Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
-
-gem 'rubyzip'
-
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
-# Use jquery as the JavaScript library
+gem 'turbolinks'
 gem 'jquery-rails'
 
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
-
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+# Utils
+gem 'nokogiri'
+gem 'rubyzip'
 gem 'jbuilder', '~> 1.2'
-
 gem 'awesome_print'
+gem 'mongoid-paperclip', :require => 'mongoid_paperclip'
+
+# Compiler
+gem 'sass-rails', '~> 4.0.0'
+gem 'uglifier', '>= 1.3.0'
+gem 'coffee-rails', '~> 4.0.0'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

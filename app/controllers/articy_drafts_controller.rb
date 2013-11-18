@@ -1,5 +1,8 @@
 class ArticyDraftsController < ApplicationController
-  before_action :set_articy_draft, only: [:show, :edit, :update, :destroy]
+  require 'zip/zip'
+  require 'zip/zipfilesystem'
+
+  before_action :set_articy_draft, only: [:show, :edit, :update, :destroy, :download]
 
   # GET /articy_drafts
   # GET /articy_drafts.json
@@ -28,16 +31,7 @@ class ArticyDraftsController < ApplicationController
     @dialogue = Dialogue.new
 
     file = params[:articy_draft][:file]
-    file_name = @articy_draft.id.to_s + '.xml'
-
-    if file.content_type == 'text/xml'
-      # @TODO Dump files into something like paperclip, not in root
-      File.open(File.join((Rails.root + AppConstants::ARTICY_DRAFT_DIR), file_name), 'wb') do |f|
-        f.write(file.read)
-      end
-
-      @articy_draft.ref = file_name
-    end
+    @articy_draft.xml = file
 
     respond_to do |format|
       if @articy_draft.save
@@ -46,32 +40,32 @@ class ArticyDraftsController < ApplicationController
         format.html { redirect_to root_path, notice: 'Articy Draft XML was successfully created.' }
         format.json { render action: 'show', status: :created, location: @articy_draft }
       else
-        # @TODO Delete created file
         format.html { render action: 'new' }
         format.json { render json: @articy_draft.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # @TODO Delete after clearing out docs
-  def upload
-    file = params[:file]
-    ap File.ftype(file)
+  # @TODO Maybe add header and footer for ImpactJS for immediate inclusion (make reusable)
+  def download
+    file_dialogues = File.new('dialogues.json', 'w')
+    file_dialogues.puts @articy_draft.dialogue.to_json
+    file_dialogues.close
 
-    # Dialogue model requires has_one articy_draft, timestamps
-    # articy_draft has_one dialogue
-    # Show will contain processing to output dialogue boxes by:
-      # Grab all dialogue nodes
-      # Identify choice groups
-      # Possibly group adjacent choice dialogues and create special choice ids
-      # Maybe tag nodes that lead to choices
-      # To grab or not to grab dialogue in-betweens
-    # Ability to scroll through all dialogues with dropdowns (JavaScript collapse)
-    # Quick travel by clicking node id
-    # Special view for outputting XML nodes as HTML
-    # Export JSON script button
-      # Exports .js file with all dialogue nodes and added groups
-      # Maybe add header and footer for ImpactJS for immediate inclusion (make reusable)
+    t = Tempfile.new('dump')
+    # Give the path of the temp file to the zip outputstream, it won't try to open it as an archive.
+    Zip::ZipOutputStream.open(t.path) do |zos|
+      [file_dialogues].each do |f|
+        zos.put_next_entry(File.basename(f))
+        zos.print IO.read(File.path(f))
+      end
+    end
+
+    File.delete file_dialogues
+
+    send_file t.path, :type => 'application/zip', :disposition => 'attachment', :filename => "dialogues.zip"
+
+    t.close
   end
 
   # PATCH/PUT /articy_drafts/1
@@ -93,7 +87,7 @@ class ArticyDraftsController < ApplicationController
   def destroy
     @articy_draft.destroy
     respond_to do |format|
-      format.html { redirect_to articy_drafts_url }
+      format.html { redirect_to root_path }
       format.json { head :no_content }
     end
   end
