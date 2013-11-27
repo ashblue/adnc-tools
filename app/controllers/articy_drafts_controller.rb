@@ -28,15 +28,12 @@ class ArticyDraftsController < ApplicationController
   # POST /articy_drafts.json
   def create
     @articy_draft = ArticyDraft.new
-    @dialogue = Dialogue.new
 
     file = params[:articy_draft][:file]
     @articy_draft.xml = file
 
     respond_to do |format|
       if @articy_draft.save
-        @dialogue.articy_draft = @articy_draft
-        @dialogue.save
         format.html { redirect_to root_path, notice: 'Articy Draft XML was successfully created.' }
         format.json { render action: 'show', status: :created, location: @articy_draft }
       else

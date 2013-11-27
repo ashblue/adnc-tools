@@ -1,4 +1,6 @@
 AdncTools::Application.routes.draw do
+  resources :file_names
+
   resources :profiles
 
   resources :dialogues

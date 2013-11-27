@@ -1,0 +1,27 @@
+<h1>Listing file_names</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @file_names.each do |file_name| %>
+      <tr>
+        <td><%= file_name.name %></td>
+        <td><%= link_to 'Show', file_name %></td>
+        <td><%= link_to 'Edit', edit_file_name_path(file_name) %></td>
+        <td><%= link_to 'Destroy', file_name, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New File name', new_file_name_path %>
