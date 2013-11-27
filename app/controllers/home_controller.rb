@@ -7,6 +7,6 @@ class HomeController < ApplicationController
     @file_names = FileName.all.sort_by { |f| f.name }
 
     @profile = Profile.new
-    @profiles = Profile.all.sort_by { |p| p[:created_at] }.reverse
+    @profiles = Profile.all.sort_by { |p| p.name }.reverse
   end
 end

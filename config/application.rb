@@ -13,6 +13,7 @@ Bundler.require(:default, Rails.env)
 
 module AdncTools
   class Application < Rails::Application
+    # Force load libs
     config.autoload_paths += %W(#{config.root}/lib)
 
     # Settings in config/environments/* take precedence over those specified here.

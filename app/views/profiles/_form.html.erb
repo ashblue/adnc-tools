@@ -1,17 +1,27 @@
 <%= form_for(@profile) do |f| %>
-  <% if @profile.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
+    <% if @profile.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
 
-      <ul>
-      <% @profile.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+            <ul>
+                <% @profile.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, :class => 'form-control' %>
     </div>
-  <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="form-group">
+        <%= f.label :file_name_id %>
+        <%= f.collection_select :file_name_id, FileName.all, :id, :name, {}, {:class => 'form-control'} %>
+    </div>
+
+    <div class="actions">
+        <%= f.submit :class => 'btn btn-default btn-xs' %>
+    </div>
 <% end %>

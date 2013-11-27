@@ -1,7 +1,5 @@
 class Node::Child < Node::Base
-  include Mongoid::Document
-
-  has_one :node_parent
+  belongs_to :node_parent, :class_name => 'Node::Parent'
 
   # If an attribute other than the inner_text should be returned
   field :return_attr, :type => String

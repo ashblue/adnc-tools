@@ -1,7 +1,7 @@
-<h2>Upload Articy: Draft Export</h2>
+<h2>Upload Articy: Draft XML Export</h2>
 <%= render 'articy_drafts/form' %>
 
-<h3>Articy: Draft Compiles</h3>
+<h3>Available JSON exports</h3>
 <table class="table table-striped table-bordered">
     <tr>
         <th>Date</th>
@@ -18,42 +18,44 @@
     <% end %>
 </table>
 
-<h2>Export Profiles</h2>
+<h2>Node Profiles</h2>
 <p>Note all profiles are included in an export</p>
 
-<table>
+<table class="table table-striped table-bordered">
     <tr>
-        <th>Date</th>
+        <th>Name</th>
+        <th>File Target</th>
         <th></th>
         <th></th>
     </tr>
 
     <% @profiles.each do |p| %>
         <tr>
-            <td><%= p.created_at %></td>
-            <td><%= link_to 'View', profile_path(p) %></td>
-            <td><%= link_to 'Delete', d, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to p.name, profile_path(p) %></td>
+            <td><%= p.file_name.name if p.file_name %></td>
+            <td><%= link_to 'Edit', edit_profile_path(p) %></td>
+            <td><%= link_to 'Delete', p, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
     <% end %>
-
-    <p>New profile form here</p>
 </table>
+
+<h3>Create new node profile</h3>
+<%= render 'profiles/form' %>
 
 <h3>File Names</h3>
 <table class="table table-striped table-bordered">
     <tr>
         <th>Name</th>
         <th></th>
-        <th></th>
     </tr>
 
     <% @file_names.each do |f| %>
         <tr>
-            <td><%= f.name %></td>
-            <td><%= link_to 'Edit', edit_file_name_path(f) %></td>
+            <td><%= link_to f.name, edit_file_name_path(f) %></td>
             <td><%= link_to 'Delete', f, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
     <% end %>
 </table>
 
+<h4>Create new file name</h4>
 <%= render 'file_names/form' %>
