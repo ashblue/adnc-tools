@@ -5,7 +5,7 @@ class ArticyDraft
 
   has_mongoid_attached_file :xml
 
-  has_one :dialogue
+  has_one :profile
 
   #validates_presence_of :ref, :message => 'You must provide a valid XML file'
   validates_attachment :xml,

@@ -4,6 +4,27 @@
 <h2>Upload Articy: Draft Export</h2>
 <%= render 'articy_drafts/form' %>
 
+<h2>Current Export Profiles</h2>
+<p>Note all profiles are included in an export</p>
+
+<table>
+    <tr>
+        <th>Date</th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    <% @profiles.each do |p| %>
+        <tr>
+            <td><%= p.created_at %></td>
+            <td><%= link_to 'View', profile_path(p) %></td>
+            <td><%= link_to 'Delete', d, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+    <% end %>
+
+    <p>New profile form here</p>
+</table>
+
 <h2>Available Articy: Draft Compiles</h2>
 <table>
     <tr>

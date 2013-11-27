@@ -42,7 +42,6 @@ class Dialogue
       }
     end
 
-    # @TODO At some point all exports should have a bookmark key
     # @TODO If a key is null, then don't include it
     xml.xpath('//Dialogue').each do |d|
       h_export[d['Id']] = {

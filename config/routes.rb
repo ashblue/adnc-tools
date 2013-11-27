@@ -1,4 +1,6 @@
 AdncTools::Application.routes.draw do
+  resources :profiles
+
   resources :dialogues
 
   resources :articy_drafts do
