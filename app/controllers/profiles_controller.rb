@@ -10,6 +10,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   # GET /profiles/1.json
   def show
+    @parent = @profile.node_parent
   end
 
   # GET /profiles/new
@@ -28,7 +29,12 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       if @profile.save
-        format.html { redirect_to root_path, notice: 'Profile was successfully created.' }
+        @parent = Node::Parent.new
+        if @parent.save
+          @profile.node_parent = @parent
+        end
+
+        format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
         format.json { render action: 'show', status: :created, location: @profile }
       else
         format.html { render action: 'new' }

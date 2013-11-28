@@ -2,7 +2,7 @@ AdncTools::Application.routes.draw do
   resources :tests
 
   namespace :node do
-    resources :bases
+    resources :parent
   end
 
   namespace :api do

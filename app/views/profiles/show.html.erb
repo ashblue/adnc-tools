@@ -1,4 +1,23 @@
-<p id="notice"><%= notice %></p>
+<h2>
+    <%= @profile.name %>
+    <small>
+        <%= link_to 'Edit', edit_profile_path(@profile) %> |
+        <%= link_to 'Back', profiles_path %>
+    </small>
+</h2>
 
-<%= link_to 'Edit', edit_profile_path(@profile) %> |
-<%= link_to 'Back', profiles_path %>
+<div data-node="parent" class="panel panel-primary" id="<%= @parent.id %>">
+    <div class="panel-heading">Parent</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6">
+                <%= render 'parent_form' %>
+            </div>
+
+            <div class="col-md-6">
+                <h4>Sample</h4>
+                <div class="sample"></div>
+            </div>
+        </div>
+    </div>
+</div>
