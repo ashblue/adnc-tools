@@ -1,3 +1,28 @@
 // Place all the styles related to the profiles controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.sample {
+    max-height: 100px;
+    overflow: hidden;
+    
+    &.active, &:hover {
+        max-height: none;
+        overflow: auto;
+    }
+}
+
+.status {
+    display: block;
+    width: 100%;
+    height: 5px;
+    background: green;
+    margin-bottom: 10px;
+    
+    &.loading {
+        background: yellow;
+    }
+    
+    &.error {
+        background: red;
+    }
+}

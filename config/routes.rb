@@ -8,6 +8,10 @@ AdncTools::Application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :tests, only: [:index, :show]
+
+      namespace :node do
+        resources :parents
+      end
     end
   end
 
