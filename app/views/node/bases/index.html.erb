@@ -1,0 +1,27 @@
+<h1>Listing node_bases</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Xcode</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @node_bases.each do |node_basis| %>
+      <tr>
+        <td><%= node_basis.xcode %></td>
+        <td><%= link_to 'Show', node_basis %></td>
+        <td><%= link_to 'Edit', edit_node_basis_path(node_basis) %></td>
+        <td><%= link_to 'Destroy', node_basis, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Base', new_node_basis_path %>

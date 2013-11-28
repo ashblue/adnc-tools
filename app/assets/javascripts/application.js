@@ -14,4 +14,15 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require twitter/bootstrap
+//= require handlebars
+//= require ember
+//= require ember-data
+//= require_self
+//= require adnc_tools
+
+window.AdncTools = Ember.Application.create({
+    LOG_TRANSITIONS: true,
+    LOG_TRANSITIONS_INTERNAL: true
+});
+
 //= require_tree .

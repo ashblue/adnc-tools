@@ -1,0 +1,2 @@
+module Node::BasesHelper
+end

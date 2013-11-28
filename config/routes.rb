@@ -1,4 +1,16 @@
 AdncTools::Application.routes.draw do
+  resources :tests
+
+  namespace :node do
+    resources :bases
+  end
+
+  namespace :api do
+    namespace :v1 do
+      resources :tests, only: [:index, :show]
+    end
+  end
+
   resources :file_names
 
   resources :profiles
