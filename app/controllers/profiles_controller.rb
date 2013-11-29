@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-  before_action :set_profile, only: [:show, :edit, :update, :destroy]
+  before_action :set_profile, only: [:show, :edit, :update, :destroy, :child]
 
   # GET /profiles
   # GET /profiles.json
@@ -11,6 +11,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/1.json
   def show
     @parent = @profile.node_parent
+    @children = @parent.node_children
   end
 
   # GET /profiles/new
@@ -48,7 +49,7 @@ class ProfilesController < ApplicationController
   def update
     respond_to do |format|
       if @profile.update(profile_params)
-        format.html { redirect_to root_path, notice: 'Profile was successfully updated.' }
+        format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -65,6 +66,12 @@ class ProfilesController < ApplicationController
       format.html { redirect_to root_path }
       format.json { head :no_content }
     end
+  end
+
+  def child
+    @child = Node::Child.new
+    @child.node_parent = @profile.node_parent
+    @child.save
   end
 
   private

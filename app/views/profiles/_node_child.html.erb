@@ -1,0 +1,51 @@
+<div data-node="child" class="panel panel-default" id="<%= child.id %>">
+    <div class="panel-heading">
+        Child
+        <%= link_to '<span class="glyphicon glyphicon-minus-sign"></span> Delete'.html_safe,
+                    child,
+                    :remote => true,
+                    :method => :delete,
+                    :confirm => 'Permanently delete this node?',
+                    :class => 'btn btn-default btn-xs' %>
+        <span class="status"></span>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6">
+                <%= form_for child, html: { :class => 'form-inline' } do |f| %>
+                    <div class="form-group">
+                        <%= f.label :xpath %>
+                        <%= f.text_field :xpath, :class => 'form-control' %>
+                    </div>
+
+                    <div class="form-group">
+                        <%= f.label :helper %>
+                        <%= f.select :helper, XmlHelpers.methods(false).reverse,
+                                     {},
+                                     { :class => 'form-control' } %>
+                    </div>
+
+                    <div class="form-group attr <%= 'hide' if !child.helper.nil? and child.helper != 'xattr' %>">
+                        <%= f.label :return_attr, 'Return attribute?' %>
+                        <%= f.text_field :return_attr,
+                                         :placeholder => 'Defaults to inner_text',
+                                         :class => 'form-control' %>
+                    </div>
+
+                    <div class="form-group">
+                        <%= f.label :enforce_type %>
+                        <%= f.select :enforce_type, ['array', 'int'],
+                                     { :include_blank => 'none' },
+                                     { :class => 'form-control' } %>
+                    </div>
+
+                <% end %>
+            </div>
+
+            <div class="col-md-6">
+                <h4>Sample</h4>
+                <pre class="sample"><%= child.xpath_sample %></pre>
+            </div>
+        </div>
+    </div>
+</div>

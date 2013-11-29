@@ -3,21 +3,25 @@ AdncTools::Application.routes.draw do
 
   namespace :node do
     resources :parent
+    resources :child
   end
 
   namespace :api do
     namespace :v1 do
-      resources :tests, only: [:index, :show]
-
       namespace :node do
         resources :parents
+        resources :children
       end
     end
   end
 
   resources :file_names
 
-  resources :profiles
+  resources :profiles do
+    member do
+      post 'child'
+    end
+  end
 
   resources :dialogues
 

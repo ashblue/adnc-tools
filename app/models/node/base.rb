@@ -13,6 +13,10 @@ class Node::Base
     end
   end
 
+  def result(xml)
+    xml.xpath(self.xpath)
+  end
+
   def as_json(options = {})
     export = super(options)
     export[:xml] = xpath_sample

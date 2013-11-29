@@ -15,7 +15,6 @@
 //= require turbolinks
 //= require libs/class
 //= require twitter/bootstrap
-//= require handlebars
 //= require_self
 
-//= require_tree .
+//= require_tree ./profiles

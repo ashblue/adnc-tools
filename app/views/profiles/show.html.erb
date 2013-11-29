@@ -1,29 +1,21 @@
 <h2>
-    <%= @profile.name %>
-    <small>
-        <%= link_to 'Edit', edit_profile_path(@profile) %> |
-        <%= link_to 'Back', profiles_path %>
-    </small>
+    Profile
 </h2>
 
-<div data-node="parent" class="panel panel-primary" id="<%= @parent.id %>">
-    <div class="panel-heading">Parent</div>
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="status"></div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <%= render 'parent_form' %>
-            </div>
-
-            <div class="col-md-6">
-                <h4>Sample</h4>
-                <pre class="sample"><%= @parent.xpath_sample %></pre>
-            </div>
-        </div>
-    </div>
+<div style="margin-bottom: 10px">
+    <%= render 'form' %>
 </div>
+
+<%= render 'node_parent' %>
+
+<div id="node-children">
+    <% @children.each do |node| %>
+        <%= render 'node_child', :child => node %>
+    <% end %>
+</div>
+
+<%= link_to '<span class="glyphicon glyphicon-plus-sign"></span> Child'.html_safe,
+            child_profile_path,
+            :remote => true,
+            :method => :post,
+            :class => 'btn btn-default' %>

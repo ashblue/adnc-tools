@@ -11,12 +11,19 @@
     }
 }
 
+.panel-heading {
+    position: relative;
+}
+
 .status {
-    display: block;
-    width: 100%;
-    height: 5px;
+    display: inline-block;
+    width: 20px;
+    border: 1px solid white;
+    height: 20px;
     background: green;
     margin-bottom: 10px;
+    position: absolute;
+    right: 20px;
     
     &.loading {
         background: yellow;

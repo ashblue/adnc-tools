@@ -12,7 +12,6 @@ class Api::V1::Node::ParentsController < ApplicationController
   def update
     @node_parent = Node::Parent.find(params[:id])
 
-
     respond_to do |f|
       if @node_parent.update_attributes(node_parent_params)
         f.json { render :json => @node_parent }

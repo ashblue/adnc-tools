@@ -1,9 +1,6 @@
 $(document).ready(function () {
-    var URL = '/api/v1/node/parents/';
-
     var _event = {
         keyInput: function () {
-            console.log('hit');
             window.clearTimeout(this.timerAutoSave);
             this.timerAutoSave = window.setTimeout(_event.autoSave.bind(this), this.timerDelay);
         },
@@ -15,18 +12,15 @@ $(document).ready(function () {
             this.$el.find('.status').removeClass('error');
             this.$el.find('.status').addClass('loading');
 
-            $.ajax({
-                type: 'PUT',
-                url: URL + this.id + '.json',
-                data: data
-            }).done(function (response) {
-                self.$el.find('.sample').get(0).innerText = response.xml;
-            }).error(function () {
-                console.log('error');
-                self.$el.find('.status').addClass('error');
-            }).always(function () {
-                self.$el.find('.status').removeClass('loading');
-            });
+            $.ajax(
+                {
+                    type: 'PUT',
+                    url: this.url + this.id + '.json',
+                    data: data
+                }
+            ).done(this.saveSuccess.bind(this))
+            .error(this.saveError.bind(this))
+            .always(this.saveAlways.bind(this));
         }
     };
 
@@ -34,7 +28,8 @@ $(document).ready(function () {
         $el: null,
         id: null,
         timerAutoSave: null,
-        timerDelay: 300,
+        timerDelay: 1000,
+        url: '/api/v1/node/parents/',
 
         init: function ($el) {
             this.$el = $el;
@@ -44,8 +39,23 @@ $(document).ready(function () {
         },
 
         bind: function () {
-            this.$el.find('input[type="text"]')
-                .keydown(_event.keyInput.bind(this));
+            this.$el.find('input')
+                .keydown(_event.keyInput.bind(this))
+
+            this.$el.find('select')
+                .change(_event.keyInput.bind(this));
+        },
+
+        saveSuccess: function (response) {
+            this.$el.find('.sample').get(0).innerText = response.xml;
+        },
+
+        saveError: function () {
+            this.$el.find('.status').addClass('error');
+        },
+
+        saveAlways: function () {
+            this.$el.find('.status').removeClass('loading');
         }
     });
 });

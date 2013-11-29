@@ -22,7 +22,6 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'anjlab-bootstrap-rails',
     :require => 'bootstrap-rails',
     :github => 'anjlab/bootstrap-rails'
-gem 'ember-rails'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

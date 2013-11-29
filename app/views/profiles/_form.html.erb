@@ -1,4 +1,4 @@
-<%= form_for(@profile) do |f| %>
+<%= form_for(@profile, html: { :class => 'form-inline' }) do |f| %>
     <% if @profile.errors.any? %>
         <div id="error_explanation">
             <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
@@ -21,7 +21,7 @@
         <%= f.collection_select :file_name_id, FileName.all, :id, :name, {}, {:class => 'form-control'} %>
     </div>
 
-    <div class="actions">
+    <div class="action" style="margin-top: 5px;">
         <%= f.submit :class => 'btn btn-default btn-xs' %>
     </div>
 <% end %>

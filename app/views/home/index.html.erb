@@ -26,14 +26,12 @@
         <th>Name</th>
         <th>File Target</th>
         <th></th>
-        <th></th>
     </tr>
 
     <% @profiles.each do |p| %>
         <tr>
             <td><%= link_to p.name, profile_path(p) %></td>
             <td><%= p.file_name.name if p.file_name %></td>
-            <td><%= link_to 'Edit', edit_profile_path(p) %></td>
             <td><%= link_to 'Delete', p, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
     <% end %>
