@@ -21,6 +21,11 @@
         <%= f.collection_select :file_name_id, FileName.all, :id, :name, {}, {:class => 'form-control'} %>
     </div>
 
+    <div class="form-group">
+        <%= f.label :template %>
+        <%= f.text_field :template, :class => 'form-control' %>
+    </div>
+
     <div class="action" style="margin-top: 5px;">
         <%= f.submit :class => 'btn btn-default btn-xs' %>
     </div>

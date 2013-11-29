@@ -6,4 +6,6 @@ class Profile
 
   field :name, type: String
   validates_presence_of :name
+
+  field :template, type: String
 end

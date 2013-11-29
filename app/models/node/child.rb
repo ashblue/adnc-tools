@@ -13,43 +13,49 @@ class Node::Child < Node::Base
   # Helper methods from xml_helpers
   field :helper, :type => String
 
-  def xattr(xml)
-    XmlHelpers.xattr(xml, self.xpath, self.return_attr)
+  def xattr(node)
+    XmlHelpers.xattr(node, self.xpath, self.return_attr)
   end
 
-  def connectors(xml)
-    XmlHelpers.connectors(xml, self.node_parent.xpath)
+  def connectors(xml, node)
+    XmlHelpers.connectors(xml, node['Id'])
+  end
+
+  def result(xml, parent)
+    if self.helper == 'xattr'
+      result = self.xattr(parent)
+    elsif self.helper == 'connectors'
+      result = self.connectors(xml, parent)
+    end
+
+    if self.enforce_type == 'array'
+      [result]
+    else
+      result
+    end
   end
 
   def xpath_sample
     xml = ArticyDraft.last.file_xml
-    parent = self.node_parent.result(xml).first
+    parent = xml.xpath(self.node_parent.xpath).first
     result = nil
 
     if parent
       if self.helper == 'xattr'
         result = self.xattr(parent)
       elsif self.helper == 'connectors'
-        result = self.connectors(parent)
+        result = self.connectors(xml, parent)
       end
     end
 
     if result
-      result
+      if self.enforce_type == 'array'
+        [result]
+      else
+        result
+      end
     else
       'Invalid xpath'
     end
-
-    #if node
-    #
-    #  if self.helper == 'xattr'
-    #    XmlHelpers.xattr(xml, self.xpath, self.return_attr)
-    #  else
-    #
-    #  end
-    #  #node.to_xml
-    #else
-    #  'Invalid xpath'
-    #end
   end
 end

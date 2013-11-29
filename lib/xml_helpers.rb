@@ -15,7 +15,7 @@ module XmlHelpers
 
       if node.class == NilClass or node.empty?
         nil
-      elsif attr.nil?
+      elsif attr.nil? or attr == ''
         node.inner_text
       else
         result = node.attribute(attr).to_s

@@ -1,3 +1,2 @@
-console.log('im running');
-
-$('#node-children').prepend('<%=j render partial: 'profiles/node_child', locals: { child: @child } %>')
+var $el = $('<%=j render partial: 'profiles/node_child', locals: { child: @child } %>').appendTo('#node-children');
+new window.NodeChild($el);

@@ -45,20 +45,36 @@ class ArticyDraftsController < ApplicationController
 
   # @TODO Maybe add header and footer for ImpactJS for immediate inclusion (make reusable)
   def download
-    file_dialogues = File.new('dialogues.json', 'w')
-    file_dialogues.puts @articy_draft.dialogue.to_json
-    file_dialogues.close
+    xml = @articy_draft.file_xml
+
+    # Loop through and create files
+    files = []
+    FileName.all.each do |f|
+      new_file = File.new(f.name + '.json', 'w')
+      results = {}
+
+      # Loop through each profile and combine parent results
+      f.profiles.each do |p|
+        results = results.merge(p.node_parent.result(xml))
+      end
+
+      new_file.puts results.to_json
+      new_file.close
+      files.push(new_file)
+    end
 
     t = Tempfile.new('dump')
     # Give the path of the temp file to the zip outputstream, it won't try to open it as an archive.
     Zip::ZipOutputStream.open(t.path) do |zos|
-      [file_dialogues].each do |f|
+      files.each do |f|
         zos.put_next_entry(File.basename(f))
         zos.print IO.read(File.path(f))
       end
     end
 
-    File.delete file_dialogues
+    files.each do |f|
+      File.delete f
+    end
 
     send_file t.path, :type => 'application/zip', :disposition => 'attachment', :filename => "dialogues.zip"
 
