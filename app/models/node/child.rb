@@ -17,19 +17,28 @@ class Node::Child < Node::Base
     XmlHelpers.xattr(node, self.xpath, self.return_attr)
   end
 
+  def xattr_array(node)
+    XmlHelpers.xattr_array(node, self.xpath, self.return_attr)
+  end
+
   def connectors(xml, node)
     XmlHelpers.connectors(xml, node['Id'])
   end
 
+  # #TODO Make sample and result use same logic
   def result(xml, parent)
     if self.helper == 'xattr'
       result = self.xattr(parent)
+    elsif self.helper == 'xattr_array'
+      result = self.xattr_array(parent)
     elsif self.helper == 'connectors'
       result = self.connectors(xml, parent)
     end
 
     if self.enforce_type == 'array'
       [result]
+    elsif self.enforce_type == 'boolean'
+      result == '1' ? true : false
     else
       result
     end
@@ -43,6 +52,8 @@ class Node::Child < Node::Base
     if parent
       if self.helper == 'xattr'
         result = self.xattr(parent)
+      elsif self.helper == 'xattr_array'
+        result = self.xattr_array(parent)
       elsif self.helper == 'connectors'
         result = self.connectors(xml, parent)
       end
@@ -51,6 +62,8 @@ class Node::Child < Node::Base
     if result
       if self.enforce_type == 'array'
         [result]
+      elsif self.enforce_type == 'boolean'
+        result == '1' ? true : false
       else
         result
       end

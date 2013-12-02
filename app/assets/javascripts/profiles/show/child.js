@@ -3,10 +3,10 @@ $(document).ready(function () {
         changeHelper: function (e) {
             var $el = $(e.target);
 
-            if ($el.val() === 'xattr') {
-                this.$el.find('.attr').show();
-            } else {
+            if ($el.val() === 'connectors') {
                 this.$el.find('.attr').hide();
+            } else {
+                this.$el.find('.attr').show();
             }
         }
     };

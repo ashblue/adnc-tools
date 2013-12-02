@@ -10,7 +10,7 @@ module XmlHelpers
 
     # @TODO Make attr param optional
     # attr may be left blank to include the node itself instead
-    def xattr(xml, expression, attr)
+    def xattr(xml, expression, attr = nil)
       node = xml.xpath(expression)
 
       if node.class == NilClass or node.empty?
@@ -23,6 +23,21 @@ module XmlHelpers
           result
         else
           nil
+        end
+      end
+    end
+
+    def xattr_array(xml, expression, attr = nil)
+      xml.xpath(expression).map do |n|
+        if attr.nil? or attr == ''
+          n.inner_text
+        else
+          result = n.attribute(attr).to_s
+          if result != '0x0000000000000000'
+            result
+          else
+            nil
+          end
         end
       end
     end

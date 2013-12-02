@@ -30,7 +30,7 @@
                                      { :class => 'form-control' } %>
                     </div>
 
-                    <div class="form-group attr <%= 'hide' if !child.helper.nil? and child.helper != 'xattr' %>">
+                    <div class="form-group attr <%= 'hide' if !child.helper == 'connectors' %>">
                         <%= f.label :return_attr, 'Return attribute?' %>
                         <%= f.text_field :return_attr,
                                          :placeholder => 'Defaults to inner_text',
@@ -39,7 +39,7 @@
 
                     <div class="form-group">
                         <%= f.label :enforce_type %>
-                        <%= f.select :enforce_type, ['array', 'int'],
+                        <%= f.select :enforce_type, ['array', 'int', 'boolean'],
                                      { :include_blank => 'none' },
                                      { :class => 'form-control' } %>
                     </div>
