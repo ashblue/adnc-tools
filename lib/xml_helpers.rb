@@ -8,6 +8,10 @@ module XmlHelpers
       end
     end
 
+    def image_path(xml, id)
+      xml.xpath('//Asset[@Id="' + id + '"]//AssetFilename').inner_text
+    end
+
     # @TODO Make attr param optional
     # attr may be left blank to include the node itself instead
     def xattr(xml, expression, attr = nil)

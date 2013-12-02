@@ -1,1 +1,0 @@
-{ "indexes" : [ { "v" : 1, "key" : { "_id" : 1 }, "ns" : "adnc_tools_development.test_bases", "name" : "_id_" } ] }

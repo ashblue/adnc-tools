@@ -15,14 +15,27 @@ class Node::Child < Node::Base
 
   def xattr(node)
     XmlHelpers.xattr(node, self.xpath, self.return_attr)
+  rescue
+    nil
   end
 
   def xattr_array(node)
     XmlHelpers.xattr_array(node, self.xpath, self.return_attr)
+  rescue
+    nil
+  end
+
+  def image_path(xml, node)
+    id = self.xattr(node)
+    XmlHelpers.image_path(xml, id)
+  rescue
+    nil
   end
 
   def connectors(xml, node)
     XmlHelpers.connectors(xml, node['Id'])
+  rescue
+    nil
   end
 
   # #TODO Make sample and result use same logic
@@ -31,6 +44,8 @@ class Node::Child < Node::Base
       result = self.xattr(parent)
     elsif self.helper == 'xattr_array'
       result = self.xattr_array(parent)
+    elsif self.helper == 'image_path'
+      result = self.image_path(xml, parent)
     elsif self.helper == 'connectors'
       result = self.connectors(xml, parent)
     end
@@ -54,6 +69,8 @@ class Node::Child < Node::Base
         result = self.xattr(parent)
       elsif self.helper == 'xattr_array'
         result = self.xattr_array(parent)
+      elsif self.helper == 'image_path'
+        result = self.image_path(xml, parent)
       elsif self.helper == 'connectors'
         result = self.connectors(xml, parent)
       end
