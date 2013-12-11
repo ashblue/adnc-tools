@@ -32,7 +32,7 @@ class Node::Parent < Node::Base
       end
 
       # Clean up results as to remove all null values (to save on file space)
-      h_export[p['Id']].delete_if { |k, v| v.nil? }
+      h_export[p['Id']].delete_if { |k, v| v.nil? or v == '' }
     end
 
     h_export
