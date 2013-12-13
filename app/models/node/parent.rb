@@ -31,6 +31,14 @@ class Node::Parent < Node::Base
         h_export[p['Id']][c.json_name] = c.result(xml, p)
       end
 
+      # Convert horrible unicode left and right quotes to universal single and double quotes
+      # @TODO Remove this when possible, currently a Windows export issue
+      h_export[p['Id']].each_pair do |k, v|
+        if v.is_a? String
+          h_export[p['Id']][k] = v.gsub(/[\u2018\u2019]/, "'").gsub(/[\u201c\u201d]/, '"')
+        end
+      end
+
       # Clean up results as to remove all null values (to save on file space)
       h_export[p['Id']].delete_if { |k, v| v.nil? or v == '' }
     end

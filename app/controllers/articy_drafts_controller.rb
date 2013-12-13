@@ -58,7 +58,8 @@ class ArticyDraftsController < ApplicationController
         results = results.merge(p.node_parent.result(xml))
       end
 
-      new_file.puts results.to_json
+      new_file.puts results.to_json.to_s.html_safe
+
       new_file.close
       files.push(new_file)
     end
