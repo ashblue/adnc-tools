@@ -13,6 +13,9 @@ class Node::Child < Node::Base
   # Helper methods from xml_helpers
   field :helper, :type => String
 
+  field :xpath_alt, :type => String
+
+  # @TODO Horrible way of calling these, must be a cleaner way to do this
   def xattr(node)
     XmlHelpers.xattr(node, self.xpath, self.return_attr)
   rescue
@@ -38,6 +41,12 @@ class Node::Child < Node::Base
     nil
   end
 
+  def enumeration_property_definition(xml, node)
+    XmlHelpers.enumeration_property_definition(xml, self.xpath_alt, self.xattr(node))
+  rescue
+    nil
+  end
+
   # #TODO Make sample and result use same logic
   def result(xml, parent)
     if self.helper == 'xattr'
@@ -48,6 +57,8 @@ class Node::Child < Node::Base
       result = self.image_path(xml, parent)
     elsif self.helper == 'connectors'
       result = self.connectors(xml, parent)
+    elsif self.helper == 'enumeration_property_definition'
+      result = self.enumeration_property_definition(xml, parent)
     end
 
     if self.enforce_type == 'array'
@@ -73,6 +84,8 @@ class Node::Child < Node::Base
         result = self.image_path(xml, parent)
       elsif self.helper == 'connectors'
         result = self.connectors(xml, parent)
+      elsif self.helper == 'enumeration_property_definition'
+        result = self.enumeration_property_definition(xml, parent)
       end
     end
 

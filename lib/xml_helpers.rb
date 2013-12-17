@@ -45,5 +45,21 @@ module XmlHelpers
         end
       end
     end
+
+    # def_expression is an array of possible definitions
+    # def_id is the exact expression id we want
+    def enumeration_property_definition(xml, def_expression, def_id)
+      nodes = xml.xpath(def_expression)
+      result = nil
+
+      nodes.each do |n|
+        if n.xpath('.//Value').inner_text == def_id
+          result = n.xpath('.//LocalizedString').inner_text
+        end
+      end
+
+      result = nil if result == 0
+      result
+    end
   end
 end

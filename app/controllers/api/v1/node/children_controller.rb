@@ -24,6 +24,6 @@ class Api::V1::Node::ChildrenController < ApplicationController
   private
 
   def node_child_params
-    params.require(:node_child).permit(:xpath, :return_attr, :helper, :enforce_type, :json_name)
+    params.require(:node_child).permit(:xpath, :return_attr, :helper, :enforce_type, :json_name, :xpath_alt)
   end
 end
