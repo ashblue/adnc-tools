@@ -54,7 +54,7 @@ module XmlHelpers
 
       nodes.each do |n|
         if n.xpath('.//Value').inner_text == def_id
-          result = n.xpath('.//LocalizedString').inner_text
+          result = n.xpath('.//TechnicalName').inner_text
         end
       end
 
