@@ -2,10 +2,16 @@ module XmlHelpers
   # @TODO connectors xpath should only be called once
   # Finds all of the target connectors linked to the passed node id
   class << self
-    def connectors(xml, node_id)
-      xml.xpath('//Connection/Source[@IdRef="' + node_id + '"]').map do |c|
-        c.parent.xpath('.//Target').attribute('IdRef').to_s
+    # @TODO Connectors do not enforce a specific order and therefore may be wrong
+    def connectors(xml, node)
+      result = []
+      node.xpath('.//Pin[@Semantic="Output"]/@Id').each do |pinId|
+        xml.xpath('//Connection/Source[@PinRef="' + pinId + '"]/following-sibling::Target/@IdRef').each do |idRef|
+          result.push(idRef.to_s)
+        end
       end
+
+      result
     end
 
     def image_path(xml, id)

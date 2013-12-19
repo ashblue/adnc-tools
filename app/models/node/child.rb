@@ -36,7 +36,7 @@ class Node::Child < Node::Base
   end
 
   def connectors(xml, node)
-    XmlHelpers.connectors(xml, node['Id'])
+    XmlHelpers.connectors(xml, node)
   rescue
     nil
   end
