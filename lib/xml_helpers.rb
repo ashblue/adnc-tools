@@ -12,7 +12,6 @@ module XmlHelpers
       xml.xpath('//Asset[@Id="' + id + '"]//AssetFilename').inner_text
     end
 
-    # @TODO Make attr param optional
     # attr may be left blank to include the node itself instead
     def xattr(xml, expression, attr = nil)
       node = xml.xpath(expression)
@@ -20,14 +19,16 @@ module XmlHelpers
       if node.class == NilClass or node.empty?
         nil
       elsif attr.nil? or attr == ''
-        node.inner_text
+        result = node.inner_text
       else
         result = node.attribute(attr).to_s
-        if result != '0x0000000000000000'
-          result
-        else
-          nil
-        end
+      end
+
+      # Catch blank result values
+      if result != '0x0000000000000000'
+        result
+      else
+        nil
       end
     end
 
