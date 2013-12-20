@@ -41,6 +41,12 @@ class Node::Child < Node::Base
     nil
   end
 
+  def connectors_pin(xml, node)
+    XmlHelpers.connectors_pin(xml, node)
+  rescue
+    nil
+  end
+
   def enumeration_property_definition(xml, node)
     XmlHelpers.enumeration_property_definition(xml, self.xpath_alt, self.xattr(node))
   rescue
@@ -59,6 +65,8 @@ class Node::Child < Node::Base
       result = self.connectors(xml, parent)
     elsif self.helper == 'enumeration_property_definition'
       result = self.enumeration_property_definition(xml, parent)
+    elsif self.helper == 'connectors_pin'
+      result = self.connectors_pin(xml, parent)
     end
 
     if self.enforce_type == 'array'
@@ -84,6 +92,8 @@ class Node::Child < Node::Base
         result = self.image_path(xml, parent)
       elsif self.helper == 'connectors'
         result = self.connectors(xml, parent)
+      elsif self.helper == 'connectors_pin'
+        result = self.connectors_pin(xml, parent)
       elsif self.helper == 'enumeration_property_definition'
         result = self.enumeration_property_definition(xml, parent)
       end

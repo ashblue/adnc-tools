@@ -14,6 +14,19 @@ module XmlHelpers
       result
     end
 
+    def connectors_pin(xml, node)
+      result = []
+      node.xpath('.//Pin[@Semantic="Output"]/@Id').each do |pinId|
+        pin = xml.xpath('//Connection/Source[@PinRef="' + pinId + '"]/following-sibling::Target/@IdRef')
+        result.push(nil) if pin.empty?
+        pin.each do |idRef|
+          result.push(idRef.to_s)
+        end
+      end
+
+      result
+    end
+
     def image_path(xml, id)
       xml.xpath('//Asset[@Id="' + id + '"]//AssetFilename').inner_text
     end
