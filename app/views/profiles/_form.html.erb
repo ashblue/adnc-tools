@@ -12,8 +12,13 @@
     <% end %>
 
     <div class="form-group">
-        <%= f.label :name %>
+        <%= f.label :name, 'Type' %>
         <%= f.text_field :name, :class => 'form-control' %>
+    </div>
+
+    <div class="form-group">
+        <%= f.label :template %>
+        <%= f.text_field :template, :class => 'form-control' %>
     </div>
 
     <div class="form-group">
@@ -22,8 +27,8 @@
     </div>
 
     <div class="form-group">
-        <%= f.label :template %>
-        <%= f.text_field :template, :class => 'form-control' %>
+        <%= f.label :notes %>
+        <%= f.text_field :notes, :class => 'form-control' %>
     </div>
 
     <div class="action" style="margin-top: 5px;">

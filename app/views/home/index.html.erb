@@ -25,9 +25,10 @@
 
 <table class="table table-striped table-bordered">
     <tr>
-        <th>Name</th>
+        <th>Type</th>
         <th>Template</th>
         <th>File Target</th>
+        <th>Notes</th>
         <th></th>
     </tr>
 
@@ -36,6 +37,7 @@
             <td><%= link_to p.name, profile_path(p) %></td>
             <td><%= p.template %></td>
             <td><%= p.file_name.name if p.file_name %></td>
+            <td><%= p.notes if p.notes %></td>
             <td><%= link_to 'Delete', p, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
     <% end %>

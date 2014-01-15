@@ -8,4 +8,5 @@ class Profile
   validates_presence_of :name
 
   field :template, type: String
+  field :notes, type: String
 end
