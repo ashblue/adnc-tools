@@ -5,6 +5,7 @@
 <table class="table table-striped table-bordered">
     <tr>
         <th>Date</th>
+        <th>Notes</th>
         <th></th>
         <th></th>
     </tr>
@@ -12,7 +13,8 @@
     <% @articy_drafts.each do |d| %>
         <tr>
             <td><%= d.created_at %></td>
-            <td><%= link_to 'Download', download_articy_draft_path(:id => d) %></td>
+            <td><%= d.notes %></td>
+            <td><%= link_to 'Export', download_articy_draft_path(:id => d) %></td>
             <td><%= link_to 'Delete', d, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
     <% end %>

@@ -31,6 +31,7 @@ class ArticyDraftsController < ApplicationController
 
     file = params[:articy_draft][:file]
     @articy_draft.xml = file
+    @articy_draft.notes = params[:articy_draft][:notes]
 
     respond_to do |format|
       if @articy_draft.save
@@ -114,6 +115,6 @@ class ArticyDraftsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def articy_draft_params
-      params.require(:articy_draft).permit(:ref)
+      params.require(:articy_draft).permit(:ref, :notes)
     end
 end

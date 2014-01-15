@@ -7,6 +7,8 @@ class ArticyDraft
 
   has_one :profile
 
+  field :notes, type: String
+
   #validates_presence_of :ref, :message => 'You must provide a valid XML file'
   validates_attachment :xml,
                        :presence => true,
