@@ -1,25 +1,28 @@
 <%= form_for(@setting) do |f| %>
-  <% if @setting.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@setting.errors.count, "error") %> prohibited this setting from being saved:</h2>
+    <% if @setting.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@setting.errors.count, "error") %> prohibited this setting from being saved:</h2>
 
-      <ul>
-      <% @setting.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+            <ul>
+                <% @setting.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <div class="form-group">
+        <%= f.label :wrapper, 'File Wrapper' %>
+        <%= f.text_area :wrapper, :class => 'form-control', :style => 'height: 200px;' %>
+        <span class="help-block">All files will be wrapped with this block of code. You may use the following tags
+        for output placement #output (resulting export) #slug (name of the file without extension).</span>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :wrapper %><br>
-    <%= f.text_field :wrapper %>
-  </div>
-  <div class="field">
-    <%= f.label :file_type %><br>
-    <%= f.text_field :file_type %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="form-group">
+        <%= f.label :file_type, 'File Name Ending' %>
+        <%= f.text_field :file_type, :class => 'form-control' %>
+        <span class="help-block">A file type such as "js" or "json". Should only be the end of a filename.</span>
+    </div>
+    <div class="actions">
+        <%= f.submit 'Update Settings', :class => 'btn btn-default btn-xs' %>
+    </div>
 <% end %>

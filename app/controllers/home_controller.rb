@@ -8,5 +8,7 @@ class HomeController < ApplicationController
 
     @profile = Profile.new
     @profiles = Profile.all.sort_by { |p| p.name }.reverse
+
+    @setting = Setting.first
   end
 end
