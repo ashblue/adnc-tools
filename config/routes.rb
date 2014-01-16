@@ -1,4 +1,6 @@
 AdncTools::Application.routes.draw do
+  resources :settings
+
   resources :tests
 
   namespace :node do
