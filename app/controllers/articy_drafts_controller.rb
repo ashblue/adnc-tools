@@ -50,8 +50,15 @@ class ArticyDraftsController < ApplicationController
 
     # Loop through and create files
     files = []
+    settings = Setting.first
+
+    # A Settings object must exist in order to proceed
+    if (!settings)
+      raise 'A settings object must exist in order to process your export. Please create a settings object at root/settings/new. You can then maintain that object from the home page.'
+    end
+
     FileName.all.each do |f|
-      new_file = File.new(f.name + '.json', 'w')
+      new_file = File.new(f.name + '.' + settings.file_type, 'w')
       results = {}
 
       # Loop through each profile and combine parent results
@@ -59,7 +66,19 @@ class ArticyDraftsController < ApplicationController
         results = results.merge(p.node_parent.result(xml))
       end
 
-      new_file.puts results.to_json.to_s.html_safe
+      json_result = results.to_json.to_s.html_safe
+
+      if (settings.wrapper)
+        file_text = settings.wrapper
+          .gsub('#json', json_result)
+          .gsub('#name', f.name)
+      else
+        file_text = json_result
+      end
+
+      new_file.puts file_text
+
+      #new_file.puts results.to_json.to_s.html_safe
 
       new_file.close
       files.push(new_file)
