@@ -11,4 +11,11 @@ class HomeController < ApplicationController
 
     @setting = Setting.first
   end
+
+  # Runs a shell script on MongoDB and redirect the user
+  def backup
+    system('sh backup.sh')
+    flash[:notice] = 'Backup written to location in backup.sh'
+    redirect_to root_path
+  end
 end

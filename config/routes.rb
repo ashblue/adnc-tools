@@ -33,6 +33,12 @@ AdncTools::Application.routes.draw do
     end
   end
 
+  resources :home do
+    collection do
+      get 'backup'
+    end
+  end
+
   root 'home#index'
 
   # Example of regular route:

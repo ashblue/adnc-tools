@@ -1,1 +1,1 @@
-mongodump --db adnc_tools_development
+mongodump --db adnc_tools_development --out /Users/ashblue/Dropbox/Projects/adnc/mongodb_backup

@@ -44,7 +44,6 @@ class ArticyDraftsController < ApplicationController
     end
   end
 
-  # @TODO Maybe add header and footer for ImpactJS for immediate inclusion (make reusable)
   def download
     xml = @articy_draft.file_xml
 
