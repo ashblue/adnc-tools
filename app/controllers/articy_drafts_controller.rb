@@ -78,28 +78,37 @@ class ArticyDraftsController < ApplicationController
 
       new_file.puts file_text
 
-      #new_file.puts results.to_json.to_s.html_safe
-
       new_file.close
       files.push(new_file)
     end
 
-    t = Tempfile.new('dump')
-    # Give the path of the temp file to the zip outputstream, it won't try to open it as an archive.
-    Zip::ZipOutputStream.open(t.path) do |zos|
+    # Write to a location or return a zip file
+    if settings and not settings.write_location.empty?
       files.each do |f|
-        zos.put_next_entry(File.basename(f))
-        zos.print IO.read(File.path(f))
+        File.open(settings.write_location + '/' + File.basename(f), 'w') do |t|
+          t.write(File.read(f))
+        end
       end
+    else
+      t = Tempfile.new('dump')
+      # Give the path of the temp file to the zip outputstream, it won't try to open it as an archive.
+      Zip::ZipOutputStream.open(t.path) do |zos|
+        files.each do |f|
+          zos.put_next_entry(File.basename(f))
+          zos.print IO.read(File.path(f))
+        end
+      end
+
+      send_file t.path, :type => 'application/zip', :disposition => 'attachment', :filename => "dialogues.zip"
+      t.close
     end
 
     files.each do |f|
       File.delete f
     end
 
-    send_file t.path, :type => 'application/zip', :disposition => 'attachment', :filename => "dialogues.zip"
-
-    t.close
+    flash[:notice] = 'Files written to ' + settings.write_location
+    redirect_to root_path
   end
 
   # PATCH/PUT /articy_drafts/1

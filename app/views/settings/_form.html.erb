@@ -17,11 +17,20 @@
         <span class="help-block">All files will be wrapped with this block of code. You may use the following tags
         for output placement #json (resulting export) #name (name of the file without extension).</span>
     </div>
+
     <div class="form-group">
         <%= f.label :file_type, 'File Name Ending' %>
         <%= f.text_field :file_type, :class => 'form-control' %>
         <span class="help-block">A file type such as "js" or "json". Should only be the end of a filename.</span>
     </div>
+
+    <div class="form-group">
+        <%= f.label :write_location, 'Write Location' %>
+        <%= f.text_field :write_location, :class => 'form-control' %>
+        <span class="help-block">Exact location the file system will write to (must be a valid system path). Failure to
+            specify a path will return a zip file for download instead. Example '/Users/blah'</span>
+    </div>
+
     <div class="actions">
         <%= f.submit 'Update Settings', :class => 'btn btn-default btn-xs' %>
     </div>
