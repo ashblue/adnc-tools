@@ -24,6 +24,6 @@ class Api::V1::Node::ParentsController < ApplicationController
   private
 
   def node_parent_params
-    params.require(:node_parent).permit(:xpath)
+    params.require(:node_parent).permit(:xpath, :key)
   end
 end
