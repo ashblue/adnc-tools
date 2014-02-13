@@ -24,7 +24,7 @@ class Node::Parent < Node::Base
     template = @profile.template
 
     xml.xpath(self.xpath).each do |p|
-      key = p.xpath(self.key)
+      key = p.xpath(self.key).inner_text
 
       h_export[key] = {}
       h_export[key][:type] = type.downcase if !type.nil?
